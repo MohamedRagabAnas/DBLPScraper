@@ -42,18 +42,14 @@ def get_co_Authors(authorNames):
         for author in soup.findAll('span', attrs={"itemprop": "author"}):
             authors.append(author.text)
     authors=list(set(authors))
-    return {'Authors': authors}
+    return authors
 
 def main():
     authors=get_co_Authors(authorNames=["mohamed ragab moaawad","noha mohamed osman","hosam zaghloul"])
+    with open('Co-Authors.csv', "wb") as csvfile:
+        for authorName in authors:
+           csvfile.write(str(authorName)+"\n")
     print authors
     
-    '''
-    with open('Authors.csv', 'wb') as f:
-        w = csv.DictWriter(f, authors.keys())
-        w.writeheader()
-        w.writerow(authors)
-    '''       
-
 if __name__ == '__main__':
         main()
